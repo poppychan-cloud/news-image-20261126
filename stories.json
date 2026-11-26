@@ -1,0 +1,489 @@
+{
+ "briefs": [
+  {
+   "badge": "REPORTED",
+   "dateline": "TOKYO",
+   "field": "Markets",
+   "headline": "Tamura speaks in Yamanashi",
+   "n": 4,
+   "region": "ASIA-PACIFIC"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "TOKYO",
+   "field": "Markets",
+   "headline": "Nikkei set to open at 57,240",
+   "n": 5,
+   "region": "ASIA-PACIFIC"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "HONG KONG",
+   "field": "Markets",
+   "headline": "Hang Seng to open up 0.9%",
+   "n": 6,
+   "region": "ASIA-PACIFIC"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "SYDNEY",
+   "field": "Markets",
+   "headline": "ASX drifts as Wall Street shuts",
+   "n": 7,
+   "region": "ASIA-PACIFIC"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "MUMBAI",
+   "field": "Culture",
+   "headline": "Mumbai marks 18 years since 26/11",
+   "map_no": 6,
+   "n": 8,
+   "region": "SOUTH ASIA"
+  },
+  {
+   "badge": "OFFICIAL",
+   "dateline": "NEW DELHI",
+   "field": "Culture",
+   "headline": "India marks Constitution Day",
+   "n": 9,
+   "region": "SOUTH ASIA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "NEW DELHI",
+   "field": "Justice",
+   "headline": "Top court defers bail pleas",
+   "n": 10,
+   "region": "SOUTH ASIA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "NEW DELHI",
+   "field": "Justice",
+   "headline": "Das moves court over passport",
+   "n": 11,
+   "region": "SOUTH ASIA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "NEW DELHI",
+   "field": "Economy",
+   "headline": "India space economy to hit $45bn",
+   "n": 12,
+   "region": "SOUTH ASIA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "NEW DELHI",
+   "field": "Sport",
+   "headline": "1,220 players enter IPL auction",
+   "n": 13,
+   "region": "SOUTH ASIA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "NEW DELHI",
+   "field": "Economy",
+   "headline": "Air fares see 35% inflation",
+   "n": 14,
+   "region": "SOUTH ASIA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "BAGHDAD",
+   "field": "Justice",
+   "headline": "Iraqi court backs Kurdish steps",
+   "map_no": 3,
+   "n": 15,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "ANKARA",
+   "field": "Politics",
+   "headline": "Haftar hails 'new phase'",
+   "n": 16,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "CLAIM",
+   "dateline": "SANAA",
+   "field": "War",
+   "headline": "Houthis threaten Jeddah ports",
+   "n": 17,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "GAZA",
+   "field": "War",
+   "headline": "Israel opens ground op in Gaza",
+   "map_no": 5,
+   "n": 18,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "GAZA",
+   "field": "Justice",
+   "headline": "Gaza inmates stay jailed",
+   "n": 19,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "WASHINGTON",
+   "field": "Politics",
+   "headline": "Trump: Iran war 'effectively over'",
+   "n": 20,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "TEHRAN",
+   "field": "War",
+   "headline": "IRGC commander killed in Iran",
+   "n": 21,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "DUBAI",
+   "field": "Economy",
+   "headline": "Emirates tops airline ranking",
+   "n": 22,
+   "region": "MIDDLE EAST"
+  },
+  {
+   "badge": "OFFICIAL",
+   "dateline": "BRUSSELS",
+   "field": "Politics",
+   "headline": "Euro Summit opens council day",
+   "n": 23,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "MOSCOW",
+   "field": "War",
+   "headline": "Russia OKs record defence budget",
+   "n": 24,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "BRUSSELS",
+   "field": "Politics",
+   "headline": "EU groups halt talks with EPP",
+   "n": 25,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "PARIS",
+   "field": "War",
+   "headline": "France reacts to Merkuriy attack",
+   "n": 26,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "CLAIM",
+   "dateline": "BARCELONA",
+   "field": "Politics",
+   "headline": "Puigdemont plans return home",
+   "n": 27,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "OFFICIAL",
+   "dateline": "BERLIN",
+   "field": "Politics",
+   "headline": "German, Romanian ministers speak",
+   "n": 28,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "LONDON",
+   "field": "Culture",
+   "headline": "AI voice of Motson joins FC 27",
+   "n": 29,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "GENEVA",
+   "field": "Sport",
+   "headline": "Gukesh holds nerve at worlds",
+   "n": 30,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "PARIS",
+   "field": "Economy",
+   "headline": "France seeks mineral independence",
+   "n": 31,
+   "region": "EUROPE"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "CAIRO",
+   "field": "Disaster",
+   "headline": "Tanker fire toll rises to 31",
+   "map_no": 4,
+   "n": 32,
+   "region": "AFRICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "CAIRO",
+   "field": "Economy",
+   "headline": "Suez revenues slowly recover",
+   "n": 33,
+   "region": "AFRICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "ADDIS ABABA",
+   "field": "Health",
+   "headline": "Ethiopia pushes health freedom",
+   "n": 34,
+   "region": "AFRICA"
+  },
+  {
+   "badge": "OFFICIAL",
+   "dateline": "IOWA",
+   "field": "Disaster",
+   "headline": "Army hails Iowa blast a success",
+   "n": 35,
+   "region": "NORTH AMERICA"
+  },
+  {
+   "badge": "OFFICIAL",
+   "dateline": "NEW YORK",
+   "field": "Markets",
+   "headline": "Wall Street shut for Thanksgiving",
+   "map_no": 7,
+   "n": 36,
+   "region": "NORTH AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "WASHINGTON",
+   "field": "Justice",
+   "headline": "Fort Hood survivors lose appeal",
+   "n": 37,
+   "region": "NORTH AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "WASHINGTON",
+   "field": "Politics",
+   "headline": "US shelves Russia business plan",
+   "n": 38,
+   "region": "NORTH AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "WASHINGTON",
+   "field": "Politics",
+   "headline": "AG dodges Nvidia questions",
+   "n": 39,
+   "region": "NORTH AMERICA"
+  },
+  {
+   "badge": "OFFICIAL",
+   "dateline": "OTTAWA",
+   "field": "Markets",
+   "headline": "Canada reaffirms inflation plan",
+   "n": 40,
+   "region": "NORTH AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "BRASILIA",
+   "field": "Economy",
+   "headline": "Petrobras unveils $122bn plan",
+   "map_no": 8,
+   "n": 41,
+   "region": "LATIN AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "BOGOTA",
+   "field": "Politics",
+   "headline": "Colombia marks 10 years of peace",
+   "n": 42,
+   "region": "LATIN AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "SAN SALVADOR",
+   "field": "Economy",
+   "headline": "El Salvador lines up $860m",
+   "n": 43,
+   "region": "LATIN AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "BRIDGETOWN",
+   "field": "Technology",
+   "headline": "Barbados sets AI deadline",
+   "n": 44,
+   "region": "LATIN AMERICA"
+  },
+  {
+   "badge": "REPORTED",
+   "dateline": "SAO PAULO",
+   "field": "Science",
+   "headline": "Mosquitoes cut infections 68%",
+   "n": 45,
+   "region": "LATIN AMERICA"
+  }
+ ],
+ "date_line": "Thursday 26 November 2026",
+ "datecheck": {
+  "left_out": "Left out, earlier: Shenzhou-24 docks with first Pakistani aboard (25 Nov) · US proposes tariffs on 14 economies (25 Nov) · Huawei convicted in Brooklyn (25 Nov) · Bangladesh garment wage up 36% (25 Nov) · BepiColombo enters Mercury orbit (21 Nov) · Venezuela reveals $237.5bn debt (24 Nov) · North Korea orders Swiss office shut (25 Nov)",
+  "not_yet": "Not yet: Macy's Thanksgiving parade, postponed to Saturday · EU summit conclusions (Fri 27 Nov) · Black Friday sales (Fri 27 Nov)"
+ },
+ "footer": "45 stories from Thursday 26 November 2026 • Sources: Reuters, AP, BBC, ESA, Consilium, Bank of Korea",
+ "leads": [
+  {
+   "badge": "REPORTED",
+   "caption": "The Bank of Korea in Seoul; the decision lands on Thursday morning.",
+   "draw": "bank",
+   "fact": "32 of 34 economists expect a hike • Third rise this cycle",
+   "field": "Markets",
+   "headline": "Bank of Korea set to lift rate to 3.25%",
+   "kicker": "SEOUL • MARKETS — BANK OF KOREA",
+   "map_no": 1,
+   "region": "ASIA-PACIFIC",
+   "short": "Bank of Korea set to lift rate",
+   "summary": "The Bank of Korea is expected to raise its base rate by 25 points to 3.25% at its final meeting of 2026, as a chip-led export boom keeps growth strong and inflation above target.",
+   "why": "A hike into a market rout would test the bank's nerve — and set the rate for 2027."
+  },
+  {
+   "badge": "OFFICIAL",
+   "caption": "The European Council in Brussels; leaders meet Thursday and Friday.",
+   "draw": "eu",
+   "fact": "€45bn proposed • Final call expected in December",
+   "field": "Politics",
+   "headline": "EU leaders open summit on Ukraine's €45bn lifeline",
+   "kicker": "BRUSSELS • EUROPE — SUMMIT OPENS",
+   "map_no": 2,
+   "region": "EUROPE",
+   "short": "EU opens Ukraine summit",
+   "summary": "EU leaders open a two-day summit in Brussels to settle Ukraine's 2027 financing — up to €45bn proposed — and the 2028–2034 budget. A final loan decision is expected in December.",
+   "why": "Europe must close two thirds of Kyiv's €70bn gap for 2027."
+  },
+  {
+   "badge": "OFFICIAL",
+   "caption": "Dimorphos, the asteroid struck by NASA's DART mission in 2022.",
+   "draw": "asteroid",
+   "fact": "Hera's images released 26 November • Crater spans a stadium",
+   "field": "Science",
+   "headline": "Close-ups reveal crater on asteroid hit to save Earth",
+   "kicker": "SPACE • SCIENCE — HERA CLOSE-UPS",
+   "map_no": null,
+   "region": "GLOBAL",
+   "summary": "New close-up images from ESA's Hera mission reveal a stadium-sized crater on the asteroid Dimorphos, struck deliberately in 2022 to test whether humanity can deflect a threatening space rock.",
+   "why": "First proof a kinetic strike can move an asteroid."
+  }
+ ],
+ "legend": "OFFICIAL an authority's own word  ·  REPORTED press report  ·  CLAIM one side says  ·  Numbers match the stories",
+ "map": {
+  "markers": [
+   {
+    "label": "Seoul",
+    "lat": 37.5,
+    "lon": 127.0,
+    "n": 1
+   },
+   {
+    "label": "Brussels",
+    "lat": 50.8,
+    "lon": 4.4,
+    "n": 2
+   },
+   {
+    "label": "Baghdad",
+    "lat": 33.3,
+    "lon": 44.4,
+    "n": 3
+   },
+   {
+    "label": "Cairo",
+    "lat": 30.0,
+    "lon": 31.2,
+    "n": 4
+   },
+   {
+    "label": "Gaza",
+    "lat": 31.5,
+    "lon": 34.5,
+    "n": 5
+   },
+   {
+    "label": "Mumbai",
+    "lat": 19.1,
+    "lon": 72.8,
+    "n": 6
+   },
+   {
+    "label": "Washington",
+    "lat": 38.9,
+    "lon": -77.0,
+    "n": 7
+   },
+   {
+    "label": "Brasilia",
+    "lat": -15.8,
+    "lon": -47.9,
+    "n": 8
+   }
+  ],
+  "title": "WHERE IT HAPPENED"
+ },
+ "masthead": "THE WORLD IN ONE DAY",
+ "stats": [
+  {
+   "cap": "Bank of Korea rate, expected",
+   "num": "3.25%"
+  },
+  {
+   "cap": "Ukraine lifeline on the EU table",
+   "num": "€45bn"
+  },
+  {
+   "cap": "Mumbai 26/11 dead remembered",
+   "num": "166"
+  },
+  {
+   "cap": "Petrobras investment plan",
+   "num": "$122bn"
+  },
+  {
+   "cap": "Cairo tanker fire toll",
+   "num": "31"
+  },
+  {
+   "cap": "Years since Colombia peace deal",
+   "num": "10"
+  }
+ ],
+ "ticker": "Bank of Korea set to lift rates  ·  EU opens Ukraine summit  ·  Asteroid crater revealed",
+ "timeline": {
+  "events": [
+   "01:00 Bank of Korea decides rates",
+   "01:30 Asteroid crater images out",
+   "03:23 US Army hails Iowa blast",
+   "04:00 Mumbai marks 18 years since 26/11",
+   "06:18 Cairo tanker toll reaches 31",
+   "09:00 Euro Summit opens in Brussels",
+   "12:00 German, Romanian ministers speak"
+  ],
+  "title": "THE DAY IN UTC"
+ }
+}
