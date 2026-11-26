@@ -1,5 +1,11 @@
 # The World in One Day — 26 November 2026
 
+[![make.fun · news-image-20261126](https://make.fun/badge/news-image-20261126.svg)](https://make.fun/bounty/news-image-20261126?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261126)
+[![rank](https://make.fun/badge/news-image-20261126/poppychan-cloud/news-image-20261126/rank.svg)](https://make.fun/bounty/news-image-20261126/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261126)
+[![reward](https://make.fun/badge/news-image-20261126/poppychan-cloud/news-image-20261126/reward.svg)](https://make.fun/bounty/news-image-20261126?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261126)
+
+Entry for the [make.fun bounty](https://make.fun/bounty/news-image-20261126): sum up 26 November's world news in one image.
+
 A one-page newspaper that sums up Thursday 26 November 2026 in a single
 1024×1024 image: 45 stories (3 illustrated leads + 42 numbered briefs)
 across 8 regions and 9 fields, a big-number stat strip, a large numbered
