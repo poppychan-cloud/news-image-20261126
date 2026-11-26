@@ -1,470 +1,470 @@
 {
-  "briefs": [
-    {
-      "badge": "REPORTED",
-      "city": "TOKYO",
-      "field": "Tech",
-      "headline": "Japan aims to be world No.3 AI power",
-      "n": 1,
-      "region": "ASIA-PACIFIC"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "TAIPEI",
-      "field": "Markets",
-      "headline": "Taiwan calls US 15% tariff lowest tier",
-      "n": 2,
-      "region": "ASIA-PACIFIC"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "TOKYO",
-      "field": "Economy",
-      "headline": "BoJ hawk Tamura puts Dec hike on table",
-      "n": 3,
-      "region": "ASIA-PACIFIC"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "PYONGYANG",
-      "field": "Diplomacy",
-      "headline": "N. Korea orders Swiss office shut",
-      "n": 4,
-      "region": "ASIA-PACIFIC"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "PYONGYANG",
-      "field": "Politics",
-      "headline": "Kim inspects nuclear sites, wants more arms",
-      "n": 5,
-      "region": "ASIA-PACIFIC"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "SEOUL",
-      "field": "Economy",
-      "headline": "Korail work-to-rule drags on",
-      "n": 6,
-      "region": "ASIA-PACIFIC"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "TOKYO",
-      "field": "Culture",
-      "headline": "Oh Seung-ho earns third Naoki nomination",
-      "n": 7,
-      "region": "ASIA-PACIFIC"
-    },
-    {
-      "badge": "OFFICIAL",
-      "city": "NEW DELHI",
-      "field": "Diplomacy",
-      "headline": "India pledges Rs 15,000 cr Nepal aid",
-      "n": 8,
-      "region": "SOUTH ASIA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "NEW DELHI",
-      "field": "War",
-      "headline": "India: keep humans in charge of AI arms",
-      "n": 9,
-      "region": "SOUTH ASIA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "DHAKA",
-      "field": "Politics",
-      "headline": "Hasina plans Dec 16 return to Bangladesh",
-      "n": 10,
-      "region": "SOUTH ASIA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "GENEVA",
-      "field": "Sports",
-      "headline": "Gukesh meets Sindarov in title match",
-      "n": 11,
-      "region": "SOUTH ASIA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "GAZA",
-      "field": "War",
-      "headline": "Strike kills Hamas spokesman, family",
-      "n": 12,
-      "region": "MIDDLE EAST"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "TEHRAN",
-      "field": "Politics",
-      "headline": "Iran halts executions of two men",
-      "n": 13,
-      "region": "MIDDLE EAST"
-    },
-    {
-      "badge": "CLAIM",
-      "city": "HORMUZ",
-      "field": "War",
-      "headline": "Iran says ships hit mines in strait",
-      "n": 14,
-      "region": "MIDDLE EAST"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "TEHRAN",
-      "field": "Diplomacy",
-      "headline": "US tells citizens to leave Iran",
-      "n": 15,
-      "region": "MIDDLE EAST"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "HASAKA",
-      "field": "War",
-      "headline": "IS attack kills two Syrian officers",
-      "n": 16,
-      "region": "MIDDLE EAST"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "BRUSSELS",
-      "field": "Diplomacy",
-      "headline": "Von der Leyen: energy truce tests Putin",
-      "n": 17,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "MOSCOW",
-      "field": "War",
-      "headline": "Russian war dead near 500,000",
-      "n": 18,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "WARSAW",
-      "field": "Diplomacy",
-      "headline": "Poland presses UK, France on defences",
-      "n": 19,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "LONDON",
-      "field": "Economy",
-      "headline": "Eurostar walkout halts London-Paris",
-      "n": 20,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "LONDON",
-      "field": "War",
-      "headline": "UK jets move under cover at night",
-      "n": 21,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "MILAN",
-      "field": "Diplomacy",
-      "headline": "UniCredit seeks Commerzbank vote",
-      "n": 22,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "LONDON",
-      "field": "Economy",
-      "headline": "BAE signs £8.7bn submarine deal",
-      "n": 23,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "BERLIN",
-      "field": "Economy",
-      "headline": "GfK confidence -30.2, near record low",
-      "n": 24,
-      "region": "EUROPE"
-    },
-    {
-      "badge": "OFFICIAL",
-      "city": "ABUJA",
-      "field": "Diplomacy",
-      "headline": "ECOWAS sets 2027 counter-terror force",
-      "n": 25,
-      "region": "AFRICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "ADDIS ABABA",
-      "field": "Politics",
-      "headline": "Africa health summit seeks self-reliance",
-      "n": 26,
-      "region": "AFRICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "WASHINGTON",
-      "field": "Markets",
-      "headline": "Thanksgiving shuts US markets for day",
-      "n": 27,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "OFFICIAL",
-      "city": "WASHINGTON",
-      "field": "Economy",
-      "headline": "Beige Book: growth modest, prices sticky",
-      "n": 28,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "WASHINGTON",
-      "field": "Diplomacy",
-      "headline": "Nine children reunited across war lines",
-      "n": 29,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "OFFICIAL",
-      "city": "OTTAWA",
-      "field": "Economy",
-      "headline": "Canada restates inflation strategy",
-      "n": 30,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "WASHINGTON",
-      "field": "Politics",
-      "headline": "Trump freezes trade deals with Russia",
-      "n": 31,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "WASHINGTON",
-      "field": "Politics",
-      "headline": "Kilmar Garcia to leave US voluntarily",
-      "n": 32,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "NEW YORK",
-      "field": "Markets",
-      "headline": "Gold slips below $3,600 an ounce",
-      "n": 33,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "CHICAGO",
-      "field": "Economy",
-      "headline": "Radar fault snarls O'Hare departures",
-      "n": 34,
-      "region": "NORTH AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "QUITO",
-      "field": "Diplomacy",
-      "headline": "Ecuador says US talks review operations",
-      "n": 35,
-      "region": "LATIN AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "PORT-AU-PRINCE",
-      "field": "Politics",
-      "headline": "Haiti leaders fault US over gang elites",
-      "n": 36,
-      "region": "LATIN AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "ATLANTIC",
-      "field": "Politics",
-      "headline": "'Narco sub' seized, no drugs aboard",
-      "n": 37,
-      "region": "LATIN AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "MADRID",
-      "field": "Politics",
-      "headline": "Wrongly deported Salvadoran lands in Spain",
-      "n": 38,
-      "region": "LATIN AMERICA"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "VATICAN",
-      "field": "Politics",
-      "headline": "Pope decries COP31 climate failure",
-      "n": 39,
-      "region": "GLOBAL"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "DETROIT",
-      "field": "Culture",
-      "headline": "Ford family matriarch dies aged 101",
-      "n": 40,
-      "region": "GLOBAL"
-    },
-    {
-      "badge": "REPORTED",
-      "city": "ORBIT",
-      "field": "Science",
-      "headline": "Astronaut's wife gives birth on Earth",
-      "n": 41,
-      "region": "GLOBAL"
-    },
-    {
-      "badge": "CLAIM",
-      "city": "MOSCOW",
-      "field": "War",
-      "headline": "Russia mulls nuclear arms in space",
-      "n": 42,
-      "region": "GLOBAL"
-    }
-  ],
-  "date_check": {
-    "excluded": "Left out as earlier news: Shenzhou-24 launch (25 Nov); Hera asteroid images (25 Nov); Cairo tanker fire (25 Nov); Netanyahu trial hearing (25 Nov); Venezuela debt framework (24 Nov); Solomon Islands treaty (25 Nov); US Section 301 tariffs (25 Nov); BepiColombo at Mercury (21 Nov).",
-    "included": "Every story in this edition was first reported on Thursday 26 November 2026.",
-    "not_yet": "Not yet happened at press time: EU summit conclusions (expected Friday); US markets reopen Friday with shortened trading (11-27 preview).",
-    "sources": "Sources: Reuters, AP, AFP, CNN, Bank of Korea, European Council, Federal Reserve, Arirang News, Newsquawk, wire services. OFFICIAL = issued by the body named. REPORTED = carried by two or more wires. CLAIM = asserted, not verified."
-  },
+  "masthead": "THE WORLD IN ONE DAY",
   "dateline": "Thursday 26 November 2026",
   "edition_note": "45 stories · 8 regions · 9 fields · All times UTC unless stated",
   "leads": [
     {
-      "art": "bank",
-      "badge": "OFFICIAL",
       "city": "SEOUL",
-      "deck": "Five to two, the Bank of Korea lifts its rate to 3.25%, the highest since October 2024, and raises 2027 growth to 4.1%.",
-      "headline": "Bank of Korea lifts rate to 3.25%"
+      "badge": "OFFICIAL",
+      "art": "bank",
+      "headline": "Bank of Korea lifts rate to 3.25%",
+      "deck": "Five to two, the Bank of Korea lifts its rate to 3.25%, the highest since October 2024, and raises 2027 growth to 4.1%."
     },
     {
-      "art": "summit",
-      "badge": "REPORTED",
       "city": "BRUSSELS",
-      "deck": "Twenty-seven leaders meet in Brussels over a €1.58tn budget (Reuters) and a €45bn loan for Kyiv; Germany wants all to share the cost.",
-      "headline": "EU leaders open summit on budget and Ukraine loan"
+      "badge": "REPORTED",
+      "art": "summit",
+      "headline": "EU leaders open summit on budget and Ukraine loan",
+      "deck": "Twenty-seven leaders meet in Brussels over a €1.58tn budget (Reuters) and a €45bn loan for Kyiv; Germany wants all to share the cost."
     },
     {
-      "art": "chart",
-      "badge": "REPORTED",
       "city": "NEW YORK",
-      "deck": "Brent crude nears $91 and WTI $84 after Houthi attacks on Saudi energy sites; gold falls below $3,600 as US rate-cut bets fade.",
-      "headline": "Brent nears $91 after Houthi strikes"
+      "badge": "REPORTED",
+      "art": "chart",
+      "headline": "Brent nears $91 after Houthi strikes",
+      "deck": "Brent crude nears $91 and WTI $84 after Houthi attacks on Saudi energy sites; gold falls below $3,600 as US rate-cut bets fade."
+    }
+  ],
+  "stats": [
+    {
+      "value": "3.25%",
+      "caption": "BoK rate now"
+    },
+    {
+      "value": "€45bn",
+      "caption": "EU Ukraine loan"
+    },
+    {
+      "value": "$91",
+      "caption": "Brent crude"
+    },
+    {
+      "value": "4.1%",
+      "caption": "BoK 2027 growth"
+    },
+    {
+      "value": "€1.58tn",
+      "caption": "EU budget, Reuters"
+    },
+    {
+      "value": "-30.2",
+      "caption": "German GfK confidence"
+    }
+  ],
+  "briefs": [
+    {
+      "n": 1,
+      "city": "TOKYO",
+      "headline": "Japan aims to be world No.3 AI power",
+      "badge": "REPORTED",
+      "region": "ASIA-PACIFIC",
+      "field": "Tech"
+    },
+    {
+      "n": 2,
+      "city": "TAIPEI",
+      "headline": "Taiwan calls US 15% tariff lowest tier",
+      "badge": "REPORTED",
+      "region": "ASIA-PACIFIC",
+      "field": "Markets"
+    },
+    {
+      "n": 3,
+      "city": "TOKYO",
+      "headline": "BoJ hawk Tamura puts Dec hike on table",
+      "badge": "REPORTED",
+      "region": "ASIA-PACIFIC",
+      "field": "Economy"
+    },
+    {
+      "n": 4,
+      "city": "PYONGYANG",
+      "headline": "N. Korea orders Swiss office shut",
+      "badge": "REPORTED",
+      "region": "ASIA-PACIFIC",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 5,
+      "city": "PYONGYANG",
+      "headline": "Kim inspects nuclear sites, wants more arms",
+      "badge": "REPORTED",
+      "region": "ASIA-PACIFIC",
+      "field": "Politics"
+    },
+    {
+      "n": 6,
+      "city": "SEOUL",
+      "headline": "Korail work-to-rule drags on",
+      "badge": "REPORTED",
+      "region": "ASIA-PACIFIC",
+      "field": "Economy"
+    },
+    {
+      "n": 7,
+      "city": "TOKYO",
+      "headline": "Oh Seung-ho earns third Naoki nomination",
+      "badge": "REPORTED",
+      "region": "ASIA-PACIFIC",
+      "field": "Culture"
+    },
+    {
+      "n": 8,
+      "city": "NEW DELHI",
+      "headline": "India pledges Rs 15,000 cr Nepal aid",
+      "badge": "OFFICIAL",
+      "region": "SOUTH ASIA",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 9,
+      "city": "NEW DELHI",
+      "headline": "India: keep humans in charge of AI arms",
+      "badge": "REPORTED",
+      "region": "SOUTH ASIA",
+      "field": "War"
+    },
+    {
+      "n": 10,
+      "city": "DHAKA",
+      "headline": "Hasina plans Dec 16 return to Bangladesh",
+      "badge": "REPORTED",
+      "region": "SOUTH ASIA",
+      "field": "Politics"
+    },
+    {
+      "n": 11,
+      "city": "GENEVA",
+      "headline": "Gukesh meets Sindarov in title match",
+      "badge": "REPORTED",
+      "region": "SOUTH ASIA",
+      "field": "Sports"
+    },
+    {
+      "n": 12,
+      "city": "GAZA",
+      "headline": "Strike kills Hamas spokesman, family",
+      "badge": "REPORTED",
+      "region": "MIDDLE EAST",
+      "field": "War"
+    },
+    {
+      "n": 13,
+      "city": "TEHRAN",
+      "headline": "Iran halts executions of two men",
+      "badge": "REPORTED",
+      "region": "MIDDLE EAST",
+      "field": "Politics"
+    },
+    {
+      "n": 14,
+      "city": "HORMUZ",
+      "headline": "Iran says ships hit mines in strait",
+      "badge": "CLAIM",
+      "region": "MIDDLE EAST",
+      "field": "War"
+    },
+    {
+      "n": 15,
+      "city": "TEHRAN",
+      "headline": "US tells citizens to leave Iran",
+      "badge": "REPORTED",
+      "region": "MIDDLE EAST",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 16,
+      "city": "HASAKA",
+      "headline": "IS attack kills two Syrian officers",
+      "badge": "REPORTED",
+      "region": "MIDDLE EAST",
+      "field": "War"
+    },
+    {
+      "n": 17,
+      "city": "BRUSSELS",
+      "headline": "Von der Leyen: energy truce tests Putin",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 18,
+      "city": "MOSCOW",
+      "headline": "Russian war dead near 500,000",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "War"
+    },
+    {
+      "n": 19,
+      "city": "WARSAW",
+      "headline": "Poland presses UK, France on defences",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 20,
+      "city": "LONDON",
+      "headline": "Eurostar walkout halts London-Paris",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "Economy"
+    },
+    {
+      "n": 21,
+      "city": "LONDON",
+      "headline": "UK jets move under cover at night",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "War"
+    },
+    {
+      "n": 22,
+      "city": "MILAN",
+      "headline": "UniCredit seeks Commerzbank vote",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "Markets"
+    },
+    {
+      "n": 23,
+      "city": "LONDON",
+      "headline": "BAE signs £8.7bn submarine deal",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 24,
+      "city": "BERLIN",
+      "headline": "GfK confidence -30.2, near record low",
+      "badge": "REPORTED",
+      "region": "EUROPE",
+      "field": "Economy"
+    },
+    {
+      "n": 25,
+      "city": "ABUJA",
+      "headline": "ECOWAS sets 2027 counter-terror force",
+      "badge": "OFFICIAL",
+      "region": "AFRICA",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 26,
+      "city": "ADDIS ABABA",
+      "headline": "Africa health summit seeks self-reliance",
+      "badge": "REPORTED",
+      "region": "AFRICA",
+      "field": "Politics"
+    },
+    {
+      "n": 27,
+      "city": "WASHINGTON",
+      "headline": "Thanksgiving shuts US markets for day",
+      "badge": "REPORTED",
+      "region": "NORTH AMERICA",
+      "field": "Markets"
+    },
+    {
+      "n": 28,
+      "city": "WASHINGTON",
+      "headline": "Beige Book: growth modest, prices sticky",
+      "badge": "OFFICIAL",
+      "region": "NORTH AMERICA",
+      "field": "Economy"
+    },
+    {
+      "n": 29,
+      "city": "WASHINGTON",
+      "headline": "Nine children reunited across war lines",
+      "badge": "REPORTED",
+      "region": "NORTH AMERICA",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 30,
+      "city": "OTTAWA",
+      "headline": "Canada restates inflation strategy",
+      "badge": "OFFICIAL",
+      "region": "NORTH AMERICA",
+      "field": "Economy"
+    },
+    {
+      "n": 31,
+      "city": "WASHINGTON",
+      "headline": "Trump freezes trade deals with Russia",
+      "badge": "REPORTED",
+      "region": "NORTH AMERICA",
+      "field": "Politics"
+    },
+    {
+      "n": 32,
+      "city": "WASHINGTON",
+      "headline": "Kilmar Garcia to leave US voluntarily",
+      "badge": "REPORTED",
+      "region": "NORTH AMERICA",
+      "field": "Politics"
+    },
+    {
+      "n": 33,
+      "city": "NEW YORK",
+      "headline": "Gold slips below $3,600 an ounce",
+      "badge": "REPORTED",
+      "region": "NORTH AMERICA",
+      "field": "Economy"
+    },
+    {
+      "n": 34,
+      "city": "CHICAGO",
+      "headline": "Radar fault snarls O'Hare departures",
+      "badge": "REPORTED",
+      "region": "NORTH AMERICA",
+      "field": "Economy"
+    },
+    {
+      "n": 35,
+      "city": "QUITO",
+      "headline": "Ecuador says US talks review operations",
+      "badge": "REPORTED",
+      "region": "LATIN AMERICA",
+      "field": "Diplomacy"
+    },
+    {
+      "n": 36,
+      "city": "PORT-AU-PRINCE",
+      "headline": "Haiti leaders fault US over gang elites",
+      "badge": "REPORTED",
+      "region": "LATIN AMERICA",
+      "field": "Politics"
+    },
+    {
+      "n": 37,
+      "city": "ATLANTIC",
+      "headline": "'Narco sub' seized, no drugs aboard",
+      "badge": "REPORTED",
+      "region": "LATIN AMERICA",
+      "field": "Politics"
+    },
+    {
+      "n": 38,
+      "city": "MADRID",
+      "headline": "Wrongly deported Salvadoran lands in Spain",
+      "badge": "REPORTED",
+      "region": "LATIN AMERICA",
+      "field": "Politics"
+    },
+    {
+      "n": 39,
+      "city": "VATICAN",
+      "headline": "Pope decries COP31 climate failure",
+      "badge": "REPORTED",
+      "region": "GLOBAL",
+      "field": "Politics"
+    },
+    {
+      "n": 40,
+      "city": "DETROIT",
+      "headline": "Ford family matriarch dies aged 101",
+      "badge": "REPORTED",
+      "region": "GLOBAL",
+      "field": "Culture"
+    },
+    {
+      "n": 41,
+      "city": "ORBIT",
+      "headline": "Astronaut's wife gives birth on Earth",
+      "badge": "REPORTED",
+      "region": "GLOBAL",
+      "field": "Science"
+    },
+    {
+      "n": 42,
+      "city": "MOSCOW",
+      "headline": "Russia mulls nuclear arms in space",
+      "badge": "CLAIM",
+      "region": "GLOBAL",
+      "field": "War"
     }
   ],
   "map_pins": [
     {
-      "city": "SEOUL",
       "n": 1,
+      "city": "SEOUL",
       "ref": "Lead 1"
     },
     {
-      "city": "BRUSSELS",
       "n": 2,
+      "city": "BRUSSELS",
       "ref": "Lead 2"
     },
     {
-      "city": "NEW YORK",
       "n": 3,
+      "city": "NEW YORK",
       "ref": "Lead 3"
     },
     {
-      "city": "GAZA",
       "n": 4,
+      "city": "GAZA",
       "ref": "Brief 12"
     },
     {
-      "city": "HORMUZ",
       "n": 5,
+      "city": "HORMUZ",
       "ref": "Brief 14"
     },
     {
-      "city": "ADDIS ABABA",
       "n": 6,
+      "city": "ADDIS ABABA",
       "ref": "Brief 26"
     },
     {
-      "city": "QUITO",
       "n": 7,
+      "city": "QUITO",
       "ref": "Brief 35"
     },
     {
-      "city": "TOKYO",
       "n": 8,
+      "city": "TOKYO",
       "ref": "Brief 1"
-    }
-  ],
-  "masthead": "THE WORLD IN ONE DAY",
-  "stats": [
-    {
-      "caption": "BoK rate now",
-      "value": "3.25%"
-    },
-    {
-      "caption": "EU Ukraine loan",
-      "value": "€45bn"
-    },
-    {
-      "caption": "Brent crude",
-      "value": "$91"
-    },
-    {
-      "caption": "BoK 2027 growth",
-      "value": "4.1%"
-    },
-    {
-      "caption": "EU budget, Reuters",
-      "value": "€1.58tn"
-    },
-    {
-      "caption": "German GfK confidence",
-      "value": "-30.2"
     }
   ],
   "timeline": [
     {
-      "text": "Overnight wires: ECOWAS roadmap; Hormuz mine claims",
-      "utc": "00:06"
+      "utc": "00:06",
+      "text": "Overnight wires: ECOWAS roadmap; Hormuz mine claims"
     },
     {
-      "text": "Bank of Korea lifts rate to 3.25%",
-      "utc": "00:40"
+      "utc": "00:40",
+      "text": "Bank of Korea lifts rate to 3.25%"
     },
     {
-      "text": "Israeli strike kills Hamas spokesman in Gaza",
-      "utc": "01:09"
+      "utc": "01:09",
+      "text": "Israeli strike kills Hamas spokesman in Gaza"
     },
     {
-      "text": "Eurostar walkout halts London–Paris trains",
-      "utc": "07:00"
+      "utc": "07:00",
+      "text": "Eurostar walkout halts London–Paris trains"
     },
     {
-      "text": "Brent nears $91 after Houthi strikes on Saudi energy",
-      "utc": "07:30"
+      "utc": "07:30",
+      "text": "Brent nears $91 after Houthi strikes on Saudi energy"
     },
     {
-      "text": "EU leaders open Ukraine summit in Brussels",
-      "utc": "08:00"
+      "utc": "08:00",
+      "text": "EU leaders open Ukraine summit in Brussels"
     },
     {
-      "text": "US markets shut for Thanksgiving",
-      "utc": "14:30"
+      "utc": "14:30",
+      "text": "US markets shut for Thanksgiving"
     }
-  ]
+  ],
+  "date_check": {
+    "included": "Every story in this edition was first reported on Thursday 26 November 2026.",
+    "excluded": "Left out as earlier news: Shenzhou-24 launch (25 Nov); Hera asteroid images (25 Nov); Cairo tanker fire (25 Nov); Netanyahu trial hearing (25 Nov); Venezuela debt framework (24 Nov); Solomon Islands treaty (25 Nov); US Section 301 tariffs (25 Nov); BepiColombo at Mercury (21 Nov).",
+    "not_yet": "Not yet happened at press time: EU summit conclusions (expected Friday); US markets reopen Friday with shortened trading (11-27 preview).",
+    "sources": "Sources: Reuters, AP, AFP, CNN, Bank of Korea, European Council, Federal Reserve, Arirang News, Newsquawk, wire services. OFFICIAL = issued by the body named. REPORTED = carried by two or more wires. CLAIM = asserted, not verified."
+  }
 }

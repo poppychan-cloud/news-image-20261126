@@ -1,4 +1,4 @@
-# The World in One Day — 26 November 2026
+# The World in One Day — 26 November 2026 (evening edition)
 
 [![make.fun · news-image-20261126](https://make.fun/badge/news-image-20261126.svg)](https://make.fun/bounty/news-image-20261126?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261126)
 [![rank](https://make.fun/badge/news-image-20261126/poppychan-cloud/news-image-20261126/rank.svg)](https://make.fun/bounty/news-image-20261126/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261126)
@@ -11,6 +11,11 @@ A one-page newspaper that sums up Thursday 26 November 2026 in a single
 across 8 regions and 9 fields, a big-number stat strip, a large numbered
 world map, a full-width UTC timeline, and a DATE CHECK footer that names
 what was left out and what had not happened yet.
+
+This evening edition carries the day's confirmed news: the Bank of Korea
+has officially lifted its rate to 3.25%, EU leaders have opened their
+summit over a €1.58tn budget (Reuters) and a €45bn Ukraine loan, and Brent
+crude nears $91 after Houthi strikes on Saudi energy sites.
 
 ## Files
 
@@ -34,15 +39,12 @@ python3 main.py        # validates and copies it to /output/entry.png
 ## Date discipline
 
 Every story in this edition was first reported on Thursday 26 November
-2026, except the overnight US market close (Wednesday in New York),
-carried as the morning wrap. The DATE CHECK footer on the page lists the
-older stories that were deliberately left out (Shenzhou-24, Hera images,
-Cairo tanker fire, the Netanyahu hearing, Venezuela's debt framework, the
-Solomon Islands treaty, US Section 301 tariffs, BepiColombo) and the items
-that had not happened yet at press time (the EU summit conclusions, the
-shortened US trading session on 27 November). The Bank of Korea decision
-is in this edition as an OFFICIAL lead: the bank hiked to 3.25% in a 5-2
-vote, its highest since October 2024.
+2026. The DATE CHECK footer on the page lists the older stories that were
+deliberately left out (Shenzhou-24, Hera images, Cairo tanker fire, the
+Netanyahu hearing, Venezuela's debt framework, the Solomon Islands treaty,
+US Section 301 tariffs, BepiColombo) and the items that had not happened
+yet at press time (the EU summit conclusions, US markets reopening Friday
+with shortened trading).
 
 Badges on every story: OFFICIAL = issued by the body named, REPORTED =
 carried by two or more wires, CLAIM = asserted, not verified.
