@@ -11,7 +11,7 @@
     {
       "badge": "REPORTED",
       "city": "TAIPEI",
-      "field": "Economy",
+      "field": "Markets",
       "headline": "Taiwan calls US 15% tariff lowest tier",
       "n": 2,
       "region": "ASIA-PACIFIC"
@@ -35,7 +35,7 @@
     {
       "badge": "REPORTED",
       "city": "PYONGYANG",
-      "field": "War",
+      "field": "Politics",
       "headline": "Kim inspects nuclear sites, wants more arms",
       "n": 5,
       "region": "ASIA-PACIFIC"
@@ -43,7 +43,7 @@
     {
       "badge": "REPORTED",
       "city": "SEOUL",
-      "field": "Politics",
+      "field": "Economy",
       "headline": "Korail work-to-rule drags on",
       "n": 6,
       "region": "ASIA-PACIFIC"
@@ -67,7 +67,7 @@
     {
       "badge": "REPORTED",
       "city": "NEW DELHI",
-      "field": "Politics",
+      "field": "War",
       "headline": "India: keep humans in charge of AI arms",
       "n": 9,
       "region": "SOUTH ASIA"
@@ -171,7 +171,7 @@
     {
       "badge": "REPORTED",
       "city": "MILAN",
-      "field": "Markets",
+      "field": "Diplomacy",
       "headline": "UniCredit seeks Commerzbank vote",
       "n": 22,
       "region": "EUROPE"
@@ -179,7 +179,7 @@
     {
       "badge": "REPORTED",
       "city": "LONDON",
-      "field": "Markets",
+      "field": "Economy",
       "headline": "BAE signs £8.7bn submarine deal",
       "n": 23,
       "region": "EUROPE"
@@ -211,7 +211,7 @@
     {
       "badge": "REPORTED",
       "city": "WASHINGTON",
-      "field": "Economy",
+      "field": "Markets",
       "headline": "Thanksgiving shuts US markets for day",
       "n": 27,
       "region": "NORTH AMERICA"
@@ -243,7 +243,7 @@
     {
       "badge": "REPORTED",
       "city": "WASHINGTON",
-      "field": "Diplomacy",
+      "field": "Politics",
       "headline": "Trump freezes trade deals with Russia",
       "n": 31,
       "region": "NORTH AMERICA"

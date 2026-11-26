@@ -1,44 +1,43 @@
-# news-image-20261126 v2 entrypoint (Python 3.13, standard library only).
+# news-image-20261126 entry (Python 3.13, standard library only).
 #
-# The finished newspaper is entry.png next to this file, rendered by
-# draw.py from stories.json with PIL. Everything on the page is drawn in
-# code, so the image cannot come out garbled. This program only checks
-# the image against the competition caps (1024x1024, 1 MiB) and drops a
-# copy where the grader looks for it, /output/entry.png.
+# entry.png beside this file is the finished newspaper, produced by
+# draw.py from stories.json with PIL (all text and pictures are drawn in
+# code, so nothing can come out garbled). This program checks the image
+# against the competition limits (1024x1024, 1 MiB) and drops a copy at
+# /output/entry.png for the grader.
 #
 # Local stand-in for /output:  mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
 
 import os
 import shutil
-import struct
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-IMAGE = os.path.join(HERE, "entry.png")
-
-MAX_SIDE = 1024
-MAX_BYTES = 1024 * 1024
+BASE = os.path.dirname(os.path.abspath(__file__))
+IMAGE = os.path.join(BASE, "entry.png")
+LIMIT_BYTES = 1024 * 1024
+LIMIT_SIDE = 1024
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 
 
-def check_image(path):
-    """Read the PNG header and size; return (width, height, bytes)."""
+def measure(path):
+    """Pull width, height and size out of the file; reject bad input."""
     with open(path, "rb") as handle:
-        head = handle.read(33)
-    if head[:8] != PNG_MAGIC:
+        prefix = handle.read(33)
+    if prefix[:8] != PNG_MAGIC:
         raise SystemExit("entry.png is not a PNG file")
-    wide, tall = struct.unpack(">II", head[16:24])
-    if wide > MAX_SIDE or tall > MAX_SIDE:
+    wide = int.from_bytes(prefix[16:20], "big")
+    tall = int.from_bytes(prefix[20:24], "big")
+    if wide > LIMIT_SIDE or tall > LIMIT_SIDE:
         raise SystemExit("image is %dx%d, over the 1024 cap" % (wide, tall))
     nbytes = os.path.getsize(path)
-    if nbytes > MAX_BYTES:
+    if nbytes > LIMIT_BYTES:
         raise SystemExit("image is %d bytes, over the 1 MiB cap" % nbytes)
     return wide, tall, nbytes
 
 
-def main():
+def run():
     if not os.path.exists(IMAGE):
         raise SystemExit("entry.png missing — run draw.py first")
-    wide, tall, nbytes = check_image(IMAGE)
+    wide, tall, nbytes = measure(IMAGE)
     target = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(target, exist_ok=True)
     dest = os.path.join(target, "entry.png")
@@ -48,4 +47,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    run()

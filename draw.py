@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draw the 26 November 2026 one-page newspaper (evening edition), entry.png.
+"""Draw the 26 November 2026 one-page newspaper, entry.png.
 
 Every glyph is rendered with PIL from the story data in stories.json, so
 the page is byte-identical on every run. No network, no clock, no random
@@ -137,7 +137,7 @@ def draw_summit_panel(drw, x, y, w, h):
 
 
 def draw_chart_panel(drw, x, y, w, h):
-    """Rising candlesticks with an uptrend line (oil lead)."""
+    """Rising candlesticks with a dashed uptrend (Oil lead)."""
     drw.rectangle([x, y, x + w, y + h], fill=(255, 255, 255), outline=RULE)
     gx, gy, gw, gh = x + 10, y + 34, w - 20, h - 48
     for i in range(1, 5):
@@ -149,9 +149,9 @@ def draw_chart_panel(drw, x, y, w, h):
     step = gw / n
     for i in range(n):
         cx = gx + step * i + step / 2
-        top = gy + gh * min(opens[i], closes[i])
-        bot = gy + gh * max(opens[i], closes[i])
-        drw.line([(cx, top - 6), (cx, bot + 6)], fill=GREEN, width=2)
+        top = gy + gh * opens[i]
+        bot = gy + gh * closes[i]
+        drw.line([(cx, gy + gh * opens[i] - 6), (cx, gy + gh * closes[i] + 6)], fill=GREEN, width=2)
         drw.rectangle([cx - 9, top, cx + 9, bot], fill=GREEN)
     for i in range(n - 1):
         x0 = gx + step * i + step / 2
