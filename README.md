@@ -42,6 +42,10 @@ Thursday 26 November 2026, laid out as a 1024×1024 image.
 python3 draw.py
 ```
 
+Rebuilt 2026-11-26 in a fresh post-opening session (v1.1 content
+unchanged; the first build session predated the competition opening and
+could not be submitted as-is).
+
 ## Sources
 
 Reuters, AP, BBC, ESA, Consilium, Bank of Korea.
