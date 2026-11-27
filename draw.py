@@ -1,57 +1,65 @@
 #!/usr/bin/env python3
-"""Draw the 26 November 2026 one-page newspaper, entry.png.
-
-Every glyph is rendered with PIL from the story data in stories.json, so
-the page is byte-identical on every run. No network, no clock, no random
-numbers: the only inputs are this file and stories.json.
+"""Render entry.png for news-image-20261126 V2 from stories.json.
+Deterministic: no network, no clock, no randomness. PIL only, stdlib only.
+Usage: python3 draw.py   (writes entry.png next to this file, prints a report)
 """
-
+import hashlib
 import json
 import os
+import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "stories.json")
-OUT = os.path.join(HERE, "entry.png")
+with open(os.path.join(HERE, "stories.json"), encoding="utf-8") as f:
+    DATA = json.load(f)
 
-PAGE_W = 1024
-PAGE_H = 1024
-MARGIN = 26
+W, H = 1024, 1024
+PAPER = (247, 242, 231)
+INK = (17, 17, 17)
+RED = (185, 28, 28)
+NAVY = (22, 48, 84)
+BLUE = (31, 95, 168)
+GREY = (96, 96, 96)
+LIGHT = (232, 226, 214)
+GREEN = (27, 107, 58)
+TEAL = (15, 118, 110)
+AMBER = (180, 83, 9)
+LAND = (216, 203, 176)
+SEA = (233, 238, 242)
+GOLD = (212, 175, 55)
 
-PAPER = (246, 241, 227)
-INK = (24, 24, 20)
-SOFT = (90, 86, 74)
-RULE = (24, 24, 20)
-FAINT = (205, 198, 178)
-PANEL = (255, 252, 240)
-SEA = (214, 226, 232)
-LAND = (232, 222, 196)
-LAND_EDGE = (168, 156, 128)
-RED = (163, 31, 31)
-BLUE = (29, 78, 137)
-GOLD = (176, 124, 12)
-GREEN = (30, 107, 52)
-AMBER = (176, 124, 12)
-
-SERIF = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf"
-SERIF_B = "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
-SANS = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-SANS_B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 
 
-def font(path, size):
-    return ImageFont.truetype(path, size)
+def font(name, size):
+    return ImageFont.truetype(os.path.join(FONT_DIR, name), size)
 
 
-def wrap_text(text, fnt, max_w):
-    """Split text into lines that fit max_w pixels, word by word."""
-    words = text.split()
-    lines = []
-    cur = ""
-    for word in words:
-        trial = word if not cur else cur + " " + word
-        if fnt.getlength(trial) <= max_w:
+def f_serif_b(s):
+    return font("DejaVuSerif-Bold.ttf", s)
+
+
+def f_serif(s):
+    return font("DejaVuSerif.ttf", s)
+
+
+def f_sans(s):
+    return font("DejaVuSans.ttf", s)
+
+
+def f_sans_b(s):
+    return font("DejaVuSans-Bold.ttf", s)
+
+
+PROBLEMS = {"trims": 0, "overflows": 0}
+
+
+def wrap(d, text, fnt, max_w):
+    lines, cur = [], ""
+    for word in text.split():
+        trial = (cur + " " + word).strip()
+        if d.textlength(trial, font=fnt) <= max_w:
             cur = trial
         else:
             if cur:
@@ -62,322 +70,426 @@ def wrap_text(text, fnt, max_w):
     return lines
 
 
-def draw_center(drw, cx, y, text, fnt, fill=INK):
-    w = fnt.getlength(text)
-    drw.text((cx - w / 2, y), text, font=fnt, fill=fill)
-    return w
+def block(d, text, fnt, x, y, max_w, max_lines, leading, color=INK):
+    """Draw wrapped text inside a box; count a trim if it does not fit."""
+    lines = wrap(d, text, fnt, max_w)
+    if len(lines) > max_lines:
+        PROBLEMS["trims"] += 1
+        print("TRIM: %r -> %d lines, max %d" % (text, len(lines), max_lines),
+              file=sys.stderr)
+        lines = lines[:max_lines]
+        while lines and d.textlength(lines[-1] + "\u2026", font=fnt) > max_w:
+            lines[-1] = lines[-1][:-1]
+        lines[-1] = lines[-1] + "\u2026"
+    for i, ln in enumerate(lines):
+        d.text((x, y + i * leading), ln, font=fnt, fill=color)
+    return len(lines)
 
 
-def badge(drw, x, y, label, h=13):
-    """Small filled tag; returns its width. Colours by label."""
-    fnt = font(SANS_B, 8)
-    pad = 5
-    w = int(fnt.getlength(label)) + pad * 2
-    if label == "OFFICIAL":
-        fill, fg = BLUE, (255, 255, 255)
-    elif label == "CLAIM":
-        fill, fg = (232, 196, 80), INK
-    else:
-        fill, fg = GREEN, (255, 255, 255)
-    drw.rounded_rectangle([x, y, x + w, y + h], radius=3, fill=fill)
-    drw.text((x + pad, y + 2), label, font=fnt, fill=fg)
-    return w
+def one_line(d, text, fnt, x, y, max_w, color=INK):
+    """Draw a single line; count an overflow if it does not fit."""
+    if d.textlength(text, font=fnt) > max_w:
+        PROBLEMS["overflows"] += 1
+        print("OVERFLOW: %r width %.0f > %.0f" % (text, d.textlength(text, font=fnt), max_w),
+              file=sys.stderr)
+        while text and d.textlength(text + "\u2026", font=fnt) > max_w:
+            text = text[:-1]
+        text = text + "\u2026"
+    d.text((x, y), text, font=fnt, fill=color)
+    return text
 
 
-def hline(drw, y, x0, x1, width=1, fill=RULE):
-    drw.line([(x0, y), (x1, y)], fill=fill, width=width)
+def badge(d, text, x, y, h=16):
+    """Badge box, right-aligned at x. Returns its left edge."""
+    colors = {"OFFICIAL": GREEN, "REPORTED": BLUE, "CLAIM": AMBER,
+              "CONFIRMED": TEAL, "ONGOING": (107, 33, 168)}
+    fill = colors.get(text, BLUE)
+    fnt = f_sans_b(9)
+    tw = d.textlength(text, font=fnt)
+    w = int(tw + 10)
+    d.rounded_rectangle([x - w, y, x, y + h], radius=3, fill=fill)
+    d.text((x - w + 5, y + 3), text, font=fnt, fill=(255, 255, 255))
+    return x - w
 
 
-class Overflow:
-    """Counts every line that had to be cut to fit its box."""
-
-    def __init__(self):
-        self.trims = 0
-        self.overs = 0
-
-    def check(self, text, fnt, max_w):
-        if fnt.getlength(text) > max_w:
-            self.overs += 1
-        return text
+def num_disc(d, cx, cy, n, r=11):
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=RED,
+              outline=(255, 255, 255), width=2)
+    fnt = f_sans_b(12 if n < 10 else 10)
+    t = str(n)
+    tw = d.textlength(t, font=fnt)
+    th = fnt.size
+    d.text((cx - tw / 2, cy - th / 2 - 1), t, font=fnt, fill=(255, 255, 255))
 
 
-def draw_bank_panel(drw, x, y, w, h):
-    """Central-bank building with a rising rate arrow (Seoul lead)."""
-    drw.rectangle([x, y, x + w, y + h], fill=(219, 232, 240), outline=RULE)
-    bx, by = x + 18, y + 34
-    bw, bh = w - 36, h - 52
-    drw.polygon([(bx, by), (bx + bw, by), (bx + bw / 2, by - 16)], fill=(70, 90, 110))
-    drw.rectangle([bx, by, bx + bw, by + 8], fill=(70, 90, 110))
-    for i in range(5):
-        cx = bx + 8 + i * ((bw - 16) / 4)
-        drw.rectangle([cx, by + 8, cx + 7, by + bh - 14], fill=(240, 244, 248), outline=(70, 90, 110))
-    drw.rectangle([bx - 4, by + bh - 14, bx + bw + 4, by + bh - 8], fill=(70, 90, 110))
-    drw.rectangle([bx - 8, by + bh - 8, bx + bw + 8, by + bh - 4], fill=(70, 90, 110))
-    drw.line([(x + w - 78, y + h - 22), (x + w - 52, y + 26), (x + w - 30, y + 44), (x + w - 12, y + 16)],
-             fill=GREEN, width=4)
-    drw.polygon([(x + w - 12, y + 16), (x + w - 12, y + 30), (x + w + 2, y + 16)], fill=GREEN)
-    big = font(SANS_B, 26)
-    drw.text((x + 12, y + 6), "3.25%", font=big, fill=INK)
-
-
-def draw_summit_panel(drw, x, y, w, h):
-    """Circle of gold stars on EU blue, with the loan figure (Brussels)."""
-    drw.rectangle([x, y, x + w, y + h], fill=(18, 52, 110), outline=RULE)
+def star(d, cx, cy, r, fill):
     import math
-    cx, cy, r = x + w / 2 - 52, y + h / 2, 44
-    for i in range(12):
-        a = math.pi * 2 * i / 12 - math.pi / 2
-        sx, sy = cx + r * math.cos(a), cy + r * math.sin(a)
-        drw.ellipse([sx - 4, sy - 4, sx + 4, sy + 4], fill=(255, 204, 0))
-    drw.text((cx - 34, cy - 9), "€45bn", font=font(SANS_B, 17), fill=(255, 255, 255))
-    drw.text((x + w - 108, y + 12), "27 FLAGS", font=font(SANS_B, 10), fill=(255, 204, 0))
-    drw.text((x + w - 108, y + 28), "1 TABLE", font=font(SANS_B, 10), fill=(255, 255, 255))
-    drw.text((x + w - 108, y + 44), "2 DAYS", font=font(SANS_B, 10), fill=(255, 255, 255))
-    drw.line([(x + 12, y + h - 14), (x + w - 12, y + h - 14)], fill=(255, 204, 0), width=2)
+    pts = []
+    for i in range(10):
+        ang = -math.pi / 2 + i * math.pi / 5
+        rr = r if i % 2 == 0 else r * 0.45
+        pts.append((cx + rr * math.cos(ang), cy + rr * math.sin(ang)))
+    d.polygon(pts, fill=fill)
 
 
-def draw_chart_panel(drw, x, y, w, h):
-    """Falling candlesticks with a dashed downtrend (New York lead)."""
-    drw.rectangle([x, y, x + w, y + h], fill=(255, 255, 255), outline=RULE)
-    gx, gy, gw, gh = x + 10, y + 34, w - 20, h - 48
-    for i in range(1, 5):
-        gy_line = gy + gh * i / 5
-        drw.line([(gx, gy_line), (gx + gw, gy_line)], fill=(228, 228, 228), width=1)
-    closes = [0.10, 0.22, 0.30, 0.48, 0.58, 0.74, 0.88]
-    opens = [0.04, 0.14, 0.24, 0.38, 0.50, 0.64, 0.80]
-    n = len(closes)
-    step = gw / n
-    for i in range(n):
-        cx = gx + step * i + step / 2
-        top = gy + gh * opens[i]
-        bot = gy + gh * closes[i]
-        drw.line([(cx, gy + gh * opens[i] - 6), (cx, gy + gh * closes[i] + 6)], fill=RED, width=2)
-        drw.rectangle([cx - 9, top, cx + 9, bot], fill=RED)
-    for i in range(n - 1):
-        x0 = gx + step * i + step / 2
-        x1 = gx + step * (i + 1) + step / 2
-        y0 = gy + gh * closes[i]
-        y1 = gy + gh * closes[i + 1]
-        drw.line([(x0, y0), (x1, y1)], fill=INK, width=2)
-    drw.text((x + 12, y + 6), "-4.6%", font=font(SANS_B, 24), fill=RED)
-
-
-def draw_masthead(drw, data, ov):
-    cx = PAGE_W / 2
-    f_title = font(SERIF_B, 44)
-    draw_center(drw, cx, 8, data["masthead"], f_title)
-    hline(drw, 58, MARGIN, PAGE_W - MARGIN, width=2)
-    f_date = font(SANS_B, 13)
-    draw_center(drw, cx, 63, data["dateline"], f_date)
-    f_note = font(SANS, 11)
-    draw_center(drw, cx, 80, data["edition_note"], f_note, fill=SOFT)
-    return 96
-
-
-def draw_chips(drw, data, y):
-    regions = ["ASIA-PACIFIC", "SOUTH ASIA", "MIDDLE EAST", "EUROPE",
-               "AFRICA", "NORTH AMERICA", "LATIN AMERICA", "GLOBAL"]
-    fields = ["Politics", "Markets", "Economy", "War", "Diplomacy",
-              "Tech", "Science", "Sports", "Culture"]
-    counts_r = {}
-    counts_f = {}
-    for b in data["briefs"]:
-        counts_r[b["region"]] = counts_r.get(b["region"], 0) + 1
-        counts_f[b["field"]] = counts_f.get(b["field"], 0) + 1
-    lead_region = {"SEOUL": "ASIA-PACIFIC", "BRUSSELS": "EUROPE", "NEW YORK": "NORTH AMERICA"}
-    lead_field = {"bank": "Economy", "summit": "Diplomacy", "chart": "Markets"}
-    for lead in data["leads"]:
-        counts_r[lead_region[lead["city"]]] = counts_r.get(lead_region[lead["city"]], 0) + 1
-        counts_f[lead_field[lead["art"]]] = counts_f.get(lead_field[lead["art"]], 0) + 1
-    f_chip = font(SANS_B, 10)
-    line_r = "   ".join("%s %d" % (r, counts_r.get(r, 0)) for r in regions)
-    line_f = "   ".join("%s %d" % (f, counts_f.get(f, 0)) for f in fields)
-    draw_center(drw, PAGE_W / 2, y, line_r, f_chip)
-    draw_center(drw, PAGE_W / 2, y + 15, line_f, font(SANS, 10), fill=SOFT)
-    hline(drw, y + 30, MARGIN, PAGE_W - MARGIN, width=1, fill=FAINT)
-    return y + 34
-
-
-def draw_stats(drw, data, y):
-    col_w = (PAGE_W - 2 * MARGIN) / 6
-    f_val = font(SANS_B, 25)
-    f_cap = font(SANS, 10)
-    for i, st in enumerate(data["stats"]):
-        cx = MARGIN + col_w * i + col_w / 2
-        draw_center(drw, cx, y, st["value"], f_val)
-        draw_center(drw, cx, y + 30, st["caption"], f_cap, fill=SOFT)
-        if i:
-            drw.line([(MARGIN + col_w * i, y + 2), (MARGIN + col_w * i, y + 42)], fill=FAINT, width=1)
-    hline(drw, y + 46, MARGIN, PAGE_W - MARGIN, width=1, fill=FAINT)
-    return y + 50
-
-
-def draw_leads(drw, data, y, ov):
-    col_w = (PAGE_W - 2 * MARGIN - 2 * 14) / 3
-    art_h = 104
-    f_kick = font(SANS_B, 11)
-    f_head = font(SERIF_B, 19)
-    f_deck = font(SERIF, 12)
-    painters = {"bank": draw_bank_panel, "summit": draw_summit_panel, "chart": draw_chart_panel}
-    for i, lead in enumerate(data["leads"]):
-        x = MARGIN + i * (col_w + 14)
-        drw.text((x, y), lead["city"], font=f_kick, fill=RED)
-        badge(drw, x + f_kick.getlength(lead["city"]) + 8, y - 1, lead["badge"])
-        ay = y + 16
-        painters[lead["art"]](drw, x, ay, col_w, art_h)
-        hy = ay + art_h + 8
-        head_lines = wrap_text(lead["headline"], f_head, col_w)
-        for ln in head_lines[:2]:
-            ov.check(ln, f_head, col_w)
-            drw.text((x, hy), ln, font=f_head, fill=INK)
-            hy += 21
-        if len(head_lines) > 2:
-            ov.trims += 1
-        dy = hy + 2
-        deck_lines = wrap_text(lead["deck"], f_deck, col_w)
-        for ln in deck_lines[:3]:
-            ov.check(ln, f_deck, col_w)
-            drw.text((x, dy), ln, font=f_deck, fill=SOFT)
-            dy += 15
-        if len(deck_lines) > 3:
-            ov.trims += 1
-    return y + 16 + art_h + 8 + 42 + 2 + 45
-
-
-CONTINENTS = [
-    [(7, 21), (42, 7), (105, 4), (154, 21), (161, 39), (133, 56), (126, 70), (105, 80), (91, 77), (63, 60), (63, 38), (3, 84)],
-    [(150, 6), (162, 4), (166, 12), (154, 16)],
-    [(120, 82), (145, 76), (172, 95), (162, 128), (140, 148), (122, 122), (112, 96)],
-    [(215, 35), (245, 15), (275, 25), (270, 50), (240, 55), (220, 48)],
-    [(205, 55), (245, 45), (275, 60), (270, 100), (245, 140), (225, 120), (210, 85)],
-    [(275, 15), (330, 5), (420, 10), (455, 30), (430, 60), (390, 75), (350, 60), (310, 50), (280, 35)],
-    [(385, 112), (430, 108), (445, 128), (400, 134)],
+# ---------------------------------------------------------------- map mask
+# 64 cols x 32 rows, '#' = land. Col = lon -180..180, row = lat 90..-60.
+MAP = [
+    "................##....######....................................",
+    "..............####....##########..#..............###############",
+    "..........###########...########..#.....########################",
+    "..#####################.....###.......##########################",
+    "...######################....#......###.########################",
+    "....." + "#" * 20 + "......" + "#" + ".." + "#" * 5 + "#" * 24 + ".",
+    "." * 11 + "#" * 16 + "." * 5 + "#" + "." + "#" * 7 + "#" * 23,
+    ".............###############.....##########################.##..",
+    "..............##############.....########################..##...",
+    "..............###############....#########.###########..#.###...",
+    "...............###############...########.######..##########....",
+    "................##############...########.#######.########......",
+    "................#######....##....#########.#####..####.###......",
+    ".................######...###....##########.###....###.####.....",
+    "..................####...###.....###########........#..#####....",
+    "...................###....#####...###########..........######...",
+    ".........................#######...##########...........######..",
+    ".........................#######....#########...........#######.",
+    ".........................#######.....#######.............######.",
+    ".........................######.......#####...............######",
+    ".........................######.......####...............#####..",
+    ".........................#####........####..............#######.",
+    ".........................#####........###.#.............#######.",
+    ".........................####.........###...............######..",
+    ".........................####.........##.................####.#.",
+    ".........................###..............................##..#.",
+    ".........................##.....................................",
+    ".........................#......................................",
+    "................................................................",
+    "................................................................",
+    "................................................................",
+    "................................................................",
 ]
+assert len(MAP) == 32 and all(len(r) == 64 for r in MAP)
 
-PIN_XY = {
-    "SEOUL": (380, 60), "BRUSSELS": (227, 34), "NEW YORK": (125, 48),
-    "GAZA": (266, 62), "HORMUZ": (295, 67), "ADDIS ABABA": (273, 92),
-    "QUITO": (120, 105), "TOKYO": (410, 48),
+# story number -> (lon, lat, dx, dy) nudge for the pin
+PINS = {
+    1: (127.0, 37.5, -5, -3), 2: (-74.0, 40.7, -3, 0), 3: (4.4, 50.8, -7, 5),
+    4: (72.8, 19.0, -4, 2), 5: (30.5, 50.4, 4, -6), 6: (139.7, 35.7, 5, 2),
+    7: (90.4, 23.8, 2, -4), 8: (160.0, -9.4, 0, 0), 9: (48.0, 29.4, 5, 2),
+    10: (8.7, 50.1, 7, -5), 11: (34.5, 31.5, -2, 7), 12: (15.3, -4.3, 0, 0),
+    13: (100.5, 13.75, 4, 3),
 }
 
-PIN_LABEL = {
-    "SEOUL": (-52, 8), "BRUSSELS": (-58, -6), "NEW YORK": (-62, -6),
-    "GAZA": (10, -14), "HORMUZ": (10, -14), "ADDIS ABABA": (10, -6),
-    "QUITO": (-52, 8), "TOKYO": (10, -6),
-}
+
+# ---------------------------------------------------------------- art
+def art_seoul(d, x, y, w, h):
+    d.rectangle([x, y, x + w, y + h], fill=(22, 48, 84))
+    # bank building, left
+    bx, by, bw = x + 18, y + 58, 130
+    d.polygon([(bx, by), (bx + bw, by), (bx + bw / 2, by - 26)], fill=(232, 226, 214))
+    d.rectangle([bx, by, bx + bw, by + 8], fill=(232, 226, 214))
+    for i in range(4):
+        cx = bx + 12 + i * 32
+        d.rectangle([cx, by + 8, cx + 14, by + 62], fill=(232, 226, 214))
+    d.rectangle([bx - 6, by + 62, bx + bw + 6, by + 70], fill=(200, 192, 176))
+    # rate bars, right
+    base = y + h - 22
+    bars = [("JUL", 34, (200, 192, 176)), ("AUG", 58, (212, 175, 55)),
+            ("NOV", 84, (220, 60, 60))]
+    bx0 = x + 178
+    for i, (lab, bh, col) in enumerate(bars):
+        bx = bx0 + i * 48
+        d.rectangle([bx, base - bh, bx + 34, base], fill=col)
+        d.text((bx + 2, base + 4), lab, font=f_sans_b(10), fill=(255, 255, 255))
+    d.text((x + w - 118, y + 8), "3.25%", font=f_sans_b(30), fill=(255, 255, 255))
+    d.text((x + w - 118, y + 42), "THIRD HIKE", font=f_sans_b(11), fill=(212, 175, 55))
 
 
-def draw_map_band(drw, data, y, ov):
-    map_x, map_y = MARGIN, y
-    map_w, map_h = 470, 174
-    f_title = font(SANS_B, 11)
-    drw.text((map_x, map_y), "THE WORLD — 8 PLACES THAT MATTER TODAY", font=f_title, fill=INK)
-    my = map_y + 18
-    drw.rectangle([map_x, my, map_x + map_w, my + map_h - 18], fill=SEA, outline=RULE)
-    ox, oy = map_x, my
-    for poly in CONTINENTS:
-        pts = [(ox + px, oy + py) for px, py in poly]
-        drw.polygon(pts, fill=LAND, outline=LAND_EDGE)
-    f_pin = font(SANS_B, 9)
-    f_lab = font(SANS_B, 8)
-    for pin in data["map_pins"]:
-        px, py = PIN_XY[pin["city"]]
-        cx, cy = ox + px, oy + py
-        drw.ellipse([cx - 8, cy - 8, cx + 8, cy + 8], fill=RED, outline=(255, 255, 255), width=1)
-        num = str(pin["n"])
-        tw = f_pin.getlength(num)
-        drw.text((cx - tw / 2, cy - 5), num, font=f_pin, fill=(255, 255, 255))
-        dx, dy = PIN_LABEL[pin["city"]]
-        drw.text((cx + dx, cy + dy), pin["city"], font=f_lab, fill=INK)
-    rx = map_x + map_w + 18
-    rw = PAGE_W - MARGIN - rx
-    drw.text((rx, map_y), "THE DAY IN UTC", font=f_title, fill=INK)
-    f_time = font(SANS_B, 11)
-    f_tl = font(SANS, 11)
-    ty = map_y + 16
-    for item in data["timeline"]:
-        drw.text((rx, ty), item["utc"], font=f_time, fill=RED)
-        lines = wrap_text(item["text"], f_tl, rw - 52)
-        ly = ty
-        for ln in lines[:1]:
-            ov.check(ln, f_tl, rw - 52)
-            drw.text((rx + 50, ly), ln, font=f_tl, fill=INK)
-            ly += 13
-        if len(lines) > 1:
-            ov.trims += 1
-        ty += 16
-    return map_y + map_h + 8
+def art_macys(d, x, y, w, h):
+    d.rectangle([x, y, x + w, y + h], fill=(44, 62, 85))
+    # skyline
+    import random
+    rnd = random.Random(26)
+    bx = x
+    while bx < x + w - 20:
+        bw = rnd.randint(18, 34)
+        bh = rnd.randint(28, 66)
+        d.rectangle([bx, y + h - bh, bx + bw, y + h], fill=(16, 22, 34))
+        for wy in range(y + h - bh + 6, y + h - 4, 10):
+            for wx in range(bx + 4, bx + bw - 3, 9):
+                if rnd.random() < 0.55:
+                    d.rectangle([wx, wy, wx + 4, wy + 5], fill=(255, 205, 90))
+        bx += bw + 3
+    # rain
+    for i in range(26):
+        rx = x + rnd.randint(0, w)
+        ry = y + rnd.randint(0, h - 40)
+        d.line([rx, ry, rx - 6, ry + 12], fill=(150, 170, 195), width=1)
+    # balloon
+    d.ellipse([x + 96, y + 8, x + 234, y + 86], fill=(200, 40, 40))
+    d.ellipse([x + 116, y + 18, x + 150, y + 44], fill=(235, 110, 110))
+    d.line([x + 150, y + 86, x + 138, y + 108], fill=(255, 255, 255), width=2)
+    d.line([x + 180, y + 86, x + 192, y + 108], fill=(255, 255, 255), width=2)
+    # banner
+    d.rectangle([x, y + h - 24, x + w, y + h], fill=RED)
+    d.text((x + 10, y + h - 20), "POSTPONED TO SATURDAY",
+           font=f_sans_b(13), fill=(255, 255, 255))
 
 
-def draw_briefs(drw, data, y, ov):
-    col_w = (PAGE_W - 2 * MARGIN - 16) / 2
-    f_num = font(SANS_B, 11)
-    f_city = font(SANS_B, 10)
-    f_head = font(SANS, 11)
-    pitch = 16
-    left = data["briefs"][:21]
-    right = data["briefs"][21:]
-    for col_i, group in enumerate((left, right)):
-        x = MARGIN + col_i * (col_w + 16)
-        cy = y
-        for b in group:
-            num = str(b["n"])
-            drw.text((x, cy), num, font=f_num, fill=RED)
-            nx = x + 22
-            city = b["city"]
-            drw.text((nx, cy + 1), city, font=f_city, fill=INK)
-            hx = nx + f_city.getlength(city) + 8
-            head = b["headline"]
-            avail = x + col_w - 62 - hx
-            ov.check(head, f_head, avail)
-            if f_head.getlength(head) > avail:
-                ov.trims += 1
-                while head and f_head.getlength(head + "…") > avail:
-                    head = head[:-1]
-                head += "…"
-            drw.text((hx, cy + 1), head, font=f_head, fill=INK)
-            badge(drw, x + col_w - 58, cy, b["badge"])
-            cy += pitch
-    return y + 21 * pitch
+def art_eu(d, x, y, w, h):
+    d.rectangle([x, y, x + w, y + h], fill=(31, 58, 110))
+    cx, cy = x + w // 2, y + 58
+    import math
+    for i in range(12):
+        ang = -math.pi / 2 + i * math.pi / 6
+        star(d, cx + 74 * math.cos(ang), cy + 40 * math.sin(ang), 7, GOLD)
+    d.text((cx - 34, cy - 16), "EU 27", font=f_sans_b(26), fill=(255, 255, 255))
+    # split bar: two halves pulling apart
+    d.polygon([(x + 20, y + h - 26), (x + w // 2 - 8, y + h - 26),
+               (x + w // 2 - 20, y + h - 8), (x + 20, y + h - 8)], fill=GOLD)
+    d.polygon([(x + w // 2 + 8, y + h - 26), (x + w - 20, y + h - 26),
+               (x + w - 20, y + h - 8), (x + w // 2 + 20, y + h - 8)],
+              fill=(120, 160, 210))
 
 
-def draw_footer(drw, data, y, ov):
-    hline(drw, y, MARGIN, PAGE_W - MARGIN, width=2)
-    f_h = font(SANS_B, 11)
-    f_t = font(SANS, 10)
-    drw.text((MARGIN, y + 6), "DATE CHECK", font=f_h, fill=RED)
-    w = PAGE_W - 2 * MARGIN
-    lines = []
-    for key in ("included", "excluded", "not_yet", "sources"):
-        lines += wrap_text(data["date_check"][key], f_t, w)
-    cy = y + 22
-    for ln in lines:
-        drw.text((MARGIN, cy), ln, font=f_t, fill=SOFT)
-        cy += 13
-    return cy
+def art_card(d, key, x, y, w, h):
+    if key == "mumbai":
+        d.rectangle([x, y, x + w, y + h], fill=(232, 150, 60))
+        d.rectangle([x + 78, y + 14, x + 118, y + h], fill=(120, 60, 20))
+        d.pieslice([x + 82, y + 2, x + 114, y + 30], 180, 360, fill=(120, 60, 20))
+        for cx in (x + 30, x + 52, x + 148, x + 170):
+            d.rectangle([cx, y + 34, cx + 5, y + h - 6], fill=(255, 240, 210))
+            d.ellipse([cx - 2, y + 24, cx + 7, y + 34], fill=(255, 200, 60))
+    elif key == "kyiv":
+        d.rectangle([x, y, x + w, y + h], fill=(70, 90, 120))
+        for i, bw in enumerate((34, 44, 30)):
+            bx = x + 12 + i * 46
+            d.rectangle([bx, y + 22, bx + bw, y + h], fill=(30, 40, 55))
+        star(d, x + 150, y + 20, 12, (255, 150, 40))
+        d.line([x + 150, y + 20, x + 176, y + 8], fill=(255, 200, 90), width=2)
+    elif key == "stocks":
+        d.rectangle([x, y, x + w, y + h], fill=(255, 255, 255))
+        pts = [(x + 8, y + 44), (x + 50, y + 38), (x + 90, y + 40),
+               (x + 130, y + 22), (x + 170, y + 14), (x + 190, y + 8)]
+        d.line(pts, fill=(27, 140, 60), width=3)
+        d.polygon([(x + 182, y + 2), (x + 194, y + 4), (x + 186, y + 14)],
+                  fill=(27, 140, 60))
+        d.text((x + 8, y + 4), "+2%", font=f_sans_b(13), fill=(27, 140, 60))
+    elif key == "dhaka":
+        d.rectangle([x, y, x + w, y + h], fill=(15, 118, 110))
+        d.rectangle([x + 12, y + 20, x + 70, y + h - 6], fill=(240, 240, 240))
+        d.rectangle([x + 76, y + 30, x + 110, y + h - 6], fill=(200, 200, 200))
+        d.text((x + 122, y + 8), "+36%", font=f_sans_b(20), fill=(255, 255, 255))
+        d.line([x + 122, y + 34, x + 188, y + 12], fill=(255, 220, 90), width=3)
+    elif key == "solomons":
+        d.rectangle([x, y, x + w, y + h], fill=(40, 110, 170))
+        d.rectangle([x, y + 34, x + w, y + h], fill=(20, 80, 140))
+        d.polygon([(x + 60, y + 34), (x + 110, y + 12), (x + 160, y + 34)],
+                  fill=(46, 125, 50))
+        d.rectangle([x + 150, y + 8, x + 152, y + 30], fill=(255, 255, 255))
+        d.rectangle([x + 152, y + 8, x + 176, y + 18], fill=(255, 215, 0))
+        d.rectangle([x + 20, y + 8, x + 22, y + 30], fill=(255, 255, 255))
+        d.rectangle([x + 22, y + 8, x + 46, y + 18], fill=(0, 40, 120))
+    elif key == "kuwait":
+        d.rectangle([x, y, x + w, y + h], fill=(214, 186, 140))
+        d.ellipse([x + 140, y + 8, x + 172, y + 40], fill=(255, 150, 40))
+        star(d, x + 156, y + 24, 10, (255, 220, 90))
+        d.line([x + 40, y + 18, x + 70, y + 18], fill=(60, 60, 60), width=2)
+        d.ellipse([x + 52, y + 12, x + 58, y + 18], fill=(60, 60, 60))
+        d.ellipse([x + 30, y + 14, x + 36, y + 20], fill=(60, 60, 60))
+        d.ellipse([x + 64, y + 14, x + 70, y + 20], fill=(60, 60, 60))
+    elif key == "ecb":
+        d.rectangle([x, y, x + w, y + h], fill=(22, 48, 84))
+        d.text((x + 12, y + 6), "\u20ac", font=f_sans_b(30), fill=GOLD)
+        for i in range(3):
+            cx = x + 120 + i * 24
+            d.rectangle([cx, y + 18, cx + 10, y + 44], fill=(232, 226, 214))
+        d.rectangle([x + 112, y + 44, x + 188, y + 48], fill=(232, 226, 214))
+    elif key == "gaza":
+        d.rectangle([x, y, x + w, y + h], fill=(20, 20, 30))
+        for i, bw in enumerate((30, 40, 26)):
+            bx = x + 14 + i * 44
+            d.rectangle([bx, y + 26, bx + bw, y + h], fill=(50, 50, 65))
+        star(d, x + 150, y + 22, 13, (255, 140, 30))
+        d.ellipse([x + 138, y + 10, x + 162, y + 34], fill=(255, 190, 80))
+    elif key == "ebola":
+        d.rectangle([x, y, x + w, y + h], fill=(240, 235, 225))
+        for cx, cy, r in ((x + 40, y + 26, 7), (x + 70, y + 16, 5),
+                          (x + 100, y + 30, 8), (x + 130, y + 18, 5),
+                          (x + 160, y + 30, 6)):
+            d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=RED)
+        d.text((x + 10, y + 34), "+", font=f_sans_b(16), fill=RED)
+    elif key == "bangkok":
+        d.rectangle([x, y, x + w, y + h], fill=(40, 40, 50))
+        for i, bh in enumerate((26, 36, 22)):
+            bx = x + 16 + i * 30
+            d.rectangle([bx, y + h - bh, bx + 16, y + h], fill=(110, 110, 125))
+        d.polygon([(x + 140, y + 8), (x + 152, y + 26), (x + 164, y + 8)],
+                  fill=(255, 150, 40))
+        d.ellipse([x + 138, y + 20, x + 166, y + 40], fill=(255, 190, 80))
+    else:
+        d.rectangle([x, y, x + w, y + h], fill=(200, 200, 200))
 
 
+LEAD_ART = {"seoul": art_seoul, "macys": art_macys, "eu": art_eu}
+
+
+# ---------------------------------------------------------------- render
 def main():
-    with open(DATA, "r", encoding="utf-8") as fh:
-        data = json.load(fh)
-    ov = Overflow()
-    img = Image.new("RGB", (PAGE_W, PAGE_H), PAPER)
-    drw = ImageDraw.Draw(img)
-    y = draw_masthead(drw, data, ov)
-    y = draw_chips(drw, data, y)
-    y = draw_stats(drw, data, y)
-    y = draw_leads(drw, data, y, ov)
-    y = draw_map_band(drw, data, y, ov)
-    y = draw_briefs(drw, data, y, ov)
-    y = draw_footer(drw, data, y, ov)
-    img.save(OUT, format="PNG")
-    size = os.path.getsize(OUT)
-    print("drew %s (%dx%d, %d bytes)" % (OUT, PAGE_W, PAGE_H, size))
-    print("layout: trims=%d overflows=%d bottom_y=%d" % (ov.trims, ov.overs, y))
-    print("stories: %d briefs + %d leads = %d" % (
-        len(data["briefs"]), len(data["leads"]),
-        len(data["briefs"]) + len(data["leads"])))
+    img = Image.new("RGB", (W, H), PAPER)
+    d = ImageDraw.Draw(img)
+
+    # top rule + masthead
+    d.rectangle([0, 0, W, 3], fill=INK)
+    mast = DATA["masthead"]
+    mf = f_serif_b(40)
+    d.text(((W - d.textlength(mast, font=mf)) / 2, 8), mast, font=mf, fill=INK)
+    df = f_sans_b(15)
+    dt = DATA["date"]
+    d.text(((W - d.textlength(dt, font=df)) / 2, 52), dt, font=df, fill=INK)
+    sf = f_serif(13)
+    st = DATA["standfirst"]
+    d.text(((W - d.textlength(st, font=sf)) / 2, 70), st, font=sf, fill=(60, 60, 60))
+
+    # stat boxes
+    stt = DATA["stats"]
+    boxes = [("45", "STORIES"), (str(stt["regions"]), "REGIONS"),
+             (str(stt["sources"]), "SOURCES \u00b7 " + str(stt["fields"]) + " FIELDS")]
+    bx = [8, 348, 688]
+    bw = [328, 328, 328]
+    for (num, lab), x0, w0 in zip(boxes, bx, bw):
+        d.rectangle([x0, 88, x0 + w0, 116], outline=INK, width=1)
+        f1, f2 = f_sans_b(19), f_sans_b(12)
+        tw = d.textlength(num, font=f1) + 6 + d.textlength(lab, font=f2)
+        cx = x0 + (w0 - tw) / 2
+        d.text((cx, 94), num, font=f1, fill=RED)
+        d.text((cx + d.textlength(num, font=f1) + 6, 98), lab, font=f2, fill=INK)
+
+    # region bar + labels
+    regs = DATA["regions"]
+    total = sum(r["count"] for r in regs)
+    x = 8
+    for r in regs:
+        seg = int(round(1008 * r["count"] / total))
+        d.rectangle([x, 122, x + seg, 132], fill=r["color"])
+        x += seg
+    rl = " \u00b7 ".join("%s %d" % (r["name"], r["count"]) for r in regs)
+    rf = f_sans(10)
+    d.text(((W - d.textlength(rl, font=rf)) / 2, 136), rl, font=rf, fill=INK)
+
+    # leads
+    leads = DATA["leads"]
+    for i, lead in enumerate(leads):
+        lx = 8 + i * 338
+        lw = 330
+        LEAD_ART[lead["art"]](d, lx, 152, lw, 138)
+        num_disc(d, lx + 14, 152 + 14, lead["n"], r=11)
+        block(d, lead["headline"], f_serif_b(16), lx, 294, lw, 3, 19)
+        block(d, lead["deck"], f_sans(12), lx, 340, lw, 3, 15)
+        sf2 = f_sans(9)
+        d.text((lx, 382), "SOURCE: " + lead["source"], font=sf2, fill=GREY)
+        badge(d, lead["badge"], lx + lw, 380)
+
+    # cards, two rows of five
+    cards = DATA["cards"]
+    for i, card in enumerate(cards):
+        row, col = divmod(i, 5)
+        cx = 8 + col * 204
+        cy = 404 + row * 128
+        cw = 196
+        art_card(d, card["art"], cx, cy, cw, 54)
+        num_disc(d, cx + 12, cy + 12, card["n"], r=10)
+        rf2 = f_sans_b(9)
+        d.text((cx, cy + 58), card["city"] + " \u00b7 " + card["region"].upper(),
+               font=rf2, fill=BLUE)
+        block(d, card["headline"], f_sans_b(12), cx, cy + 72, cw, 2, 14)
+        sf3 = f_sans(9)
+        d.text((cx, cy + 102), card["source"], font=sf3, fill=GREY)
+        badge(d, card["badge"], cx + cw, cy + 100)
+
+    # UTC timeline
+    d.text((8, 658), "THE DAY IN UTC", font=f_sans_b(11), fill=INK)
+    d.line([8, 674, 1016, 674], fill=INK, width=1)
+    tl = DATA["timeline"]
+    for i, item in enumerate(tl):
+        row, col = divmod(i, 4)
+        tx = 8 + col * 254
+        ty = 678 + row * 20
+        tf = f_sans_b(10)
+        d.text((tx, ty), item["time"] + " UTC", font=tf, fill=RED)
+        tw = d.textlength(item["time"] + " UTC  ", font=tf)
+        one_line(d, item["text"], f_sans(10), tx + tw, ty, 250 - tw)
+
+    # map + briefs header
+    d.text((8, 718), "WHERE IT HAPPENED \u2014 PINS 1\u201313",
+           font=f_sans_b(11), fill=INK)
+    rh = "ALSO ON THURSDAY 26 NOVEMBER 2026 \u2014 STORIES 14\u201345"
+    rf3 = f_sans_b(11)
+    d.text((1016 - d.textlength(rh, font=rf3), 718), rh, font=rf3, fill=INK)
+
+    # map
+    mx, my, mw, mh = 8, 736, 340, 170
+    d.rectangle([mx, my, mx + mw, my + mh], fill=SEA, outline=INK, width=1)
+    cw, ch = mw / 64.0, mh / 32.0
+    for ri, row in enumerate(MAP):
+        for ci, ch_ in enumerate(row):
+            if ch_ == "#":
+                d.rectangle([mx + ci * cw, my + ri * ch,
+                             mx + (ci + 1) * cw - 0.5, my + (ri + 1) * ch - 0.5],
+                            fill=LAND)
+    for n, (lon, lat, dx, dy) in PINS.items():
+        px = mx + (lon + 180.0) / 360.0 * mw + dx
+        py = my + (90.0 - lat) / 150.0 * mh + dy
+        num_disc(d, px, py, n, r=7)
+    d.text((mx, 912), "Pins mark leads and cards 1\u201313.",
+           font=f_sans(9), fill=GREY)
+
+    # briefs, two columns of sixteen
+    briefs = DATA["briefs"]
+    bf = f_sans(10)
+    bfb = f_sans_b(10)
+    for i, b in enumerate(briefs):
+        col, row = divmod(i, 16)
+        bx = 356 + col * 330
+        by = 736 + row * 13
+        num = "%d." % b["n"]
+        d.text((bx, by), num, font=bfb, fill=RED)
+        nw = d.textlength(num + " ", font=bfb)
+        one_line(d, "%s \u2014 %s" % (b["city"], b["text"]), bf,
+                 bx + nw, by, 322 - nw)
+
+    # date check
+    d.rectangle([8, 948, 1016, 990], outline=RED, width=1)
+    d.text((20, 951), "DATE CHECK \u2014 THESE ARE NOT 26 NOVEMBER",
+           font=f_sans_b(10), fill=RED)
+    dc = DATA["datecheck"]
+    for i, item in enumerate(dc):
+        row, col = divmod(i, 3)
+        ix = 20 + col * 336
+        iy = 967 + row * 11
+        one_line(d, "\u00d7 " + item, f_sans(10), ix, iy, 320)
+
+    # footer
+    ff = f_sans(9)
+    fn = DATA["footer_note"]
+    d.text(((W - d.textlength(fn, font=ff)) / 2, 994), fn, font=ff, fill=INK)
+    fs = DATA["footer_sources"]
+    d.text(((W - d.textlength(fs, font=ff)) / 2, 1004), fs, font=ff, fill=GREY)
+    fl = DATA["footer_legend"]
+    d.text(((W - d.textlength(fl, font=ff)) / 2, 1014), fl, font=ff, fill=GREY)
+
+    out = os.path.join(HERE, "entry.png")
+    img.save(out, format="PNG")
+    raw = open(out, "rb").read()
+    print(json.dumps({
+        "file": "entry.png",
+        "bytes": len(raw),
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "stories": len(DATA["leads"]) + len(DATA["cards"]) + len(DATA["briefs"]),
+        "trims": PROBLEMS["trims"],
+        "overflows": PROBLEMS["overflows"],
+    }, indent=1))
+    return 0 if (PROBLEMS["trims"] == 0 and PROBLEMS["overflows"] == 0) else 2
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

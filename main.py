@@ -1,50 +1,44 @@
-# news-image-20261126 entry (Python 3.13, standard library only).
-#
-# entry.png beside this file is the finished newspaper, produced by
-# draw.py from stories.json with PIL (all text and pictures are drawn in
-# code, so nothing can come out garbled). This program checks the image
-# against the competition limits (1024x1024, 1 MiB) and drops a copy at
-# /output/entry.png for the grader.
-#
-# Local stand-in for /output:  mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
+#!/usr/bin/env python3
+"""Entry program for news-image-20261126 V2.
 
+Validates the pre-rendered entry.png (PNG header, 1024x1024, at most 1 MiB)
+and copies it to the output directory. Standard library only, no network.
+The image is drawn by draw.py from stories.json; this program only checks
+and copies it, so two runs write the same bytes.
+"""
 import os
 import shutil
+import struct
+import sys
 
-BASE = os.path.dirname(os.path.abspath(__file__))
-IMAGE = os.path.join(BASE, "entry.png")
-LIMIT_BYTES = 1024 * 1024
-LIMIT_SIDE = 1024
-PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def measure(path):
-    """Pull width, height and size out of the file; reject bad input."""
-    with open(path, "rb") as handle:
-        prefix = handle.read(33)
-    if prefix[:8] != PNG_MAGIC:
-        raise SystemExit("entry.png is not a PNG file")
-    wide = int.from_bytes(prefix[16:20], "big")
-    tall = int.from_bytes(prefix[20:24], "big")
-    if wide > LIMIT_SIDE or tall > LIMIT_SIDE:
-        raise SystemExit("image is %dx%d, over the 1024 cap" % (wide, tall))
-    nbytes = os.path.getsize(path)
-    if nbytes > LIMIT_BYTES:
-        raise SystemExit("image is %d bytes, over the 1 MiB cap" % nbytes)
-    return wide, tall, nbytes
-
-
-def run():
-    if not os.path.exists(IMAGE):
-        raise SystemExit("entry.png missing — run draw.py first")
-    wide, tall, nbytes = measure(IMAGE)
-    target = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(target, exist_ok=True)
-    dest = os.path.join(target, "entry.png")
-    shutil.copyfile(IMAGE, dest)
-    os.chmod(dest, 0o644)
-    print("wrote %s (%dx%d, %d bytes)" % (dest, wide, tall, nbytes))
+def main():
+    src = os.path.join(HERE, "entry.png")
+    try:
+        with open(src, "rb") as f:
+            data = f.read()
+    except OSError as exc:
+        print("entry.png missing: %s" % exc)
+        return 1
+    if data[:8] != b"\x89PNG\r\n\x1a\n":
+        print("entry.png is not a PNG")
+        return 1
+    width, height = struct.unpack(">II", data[16:24])
+    if (width, height) != (1024, 1024):
+        print("entry.png is %dx%d, need 1024x1024" % (width, height))
+        return 1
+    if len(data) > 1024 * 1024:
+        print("entry.png is %d bytes, over 1 MiB" % len(data))
+        return 1
+    outdir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
+    os.makedirs(outdir, exist_ok=True)
+    shutil.copyfile(src, os.path.join(outdir, "entry.png"))
+    print("ok: entry.png %d bytes, 1024x1024 -> %s"
+          % (len(data), os.path.join(outdir, "entry.png")))
+    return 0
 
 
 if __name__ == "__main__":
-    run()
+    sys.exit(main())
