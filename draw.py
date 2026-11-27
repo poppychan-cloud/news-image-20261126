@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Render entry.png for news-image-20261126 V2 from stories.json.
+"""Render entry.png for news-image-20261126 V3 from stories.json.
 Deterministic: no network, no clock, no randomness. PIL only, stdlib only.
+Lead art is photorealistic (ChatGPT, text-free) from assets/; everything
+else is drawn with PIL from stories.json.
 Usage: python3 draw.py   (writes entry.png next to this file, prints a report)
 """
 import hashlib
@@ -332,6 +334,30 @@ def art_card(d, key, x, y, w, h):
 
 LEAD_ART = {"seoul": art_seoul, "macys": art_macys, "eu": art_eu}
 
+# Photorealistic lead photos (ChatGPT, text-free) replace the PIL art.
+LEAD_PHOTO = {"seoul": "assets/chatgpt-lead-seoul.png",
+              "macys": "assets/chatgpt-lead-macys.png",
+              "eu": "assets/chatgpt-lead-eu.png"}
+
+
+def lead_image(path, slot_w, slot_h):
+    """Load a lead photo, centre-crop to the slot aspect, resize to fit.
+
+    Deterministic: same file in, same pixels out. No network, no clock.
+    """
+    im = Image.open(path).convert("RGB")
+    target = slot_w / slot_h
+    w, h = im.size
+    if w / h > target:  # too wide -> crop sides
+        nw = int(h * target)
+        x0 = (w - nw) // 2
+        im = im.crop((x0, 0, x0 + nw, h))
+    else:  # too tall -> crop top/bottom
+        nh = int(w / target)
+        y0 = (h - nh) // 2
+        im = im.crop((0, y0, w, y0 + nh))
+    return im.resize((slot_w, slot_h), Image.LANCZOS)
+
 
 # ---------------------------------------------------------------- render
 def main():
@@ -381,7 +407,12 @@ def main():
     for i, lead in enumerate(leads):
         lx = 8 + i * 338
         lw = 330
-        LEAD_ART[lead["art"]](d, lx, 152, lw, 138)
+        if lead["art"] in LEAD_PHOTO:
+            img.paste(lead_image(os.path.join(HERE, LEAD_PHOTO[lead["art"]]),
+                                 lw, 138), (lx, 152))
+            d.rectangle([lx, 152, lx + lw, 152 + 138], outline=INK, width=1)
+        else:
+            LEAD_ART[lead["art"]](d, lx, 152, lw, 138)
         num_disc(d, lx + 14, 152 + 14, lead["n"], r=11)
         block(d, lead["headline"], f_serif_b(16), lx, 294, lw, 3, 19)
         block(d, lead["deck"], f_sans(12), lx, 340, lw, 3, 15)
